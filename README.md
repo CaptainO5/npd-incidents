@@ -100,6 +100,10 @@ Selects 2 points from each side of the town, gets hourly weather code for each l
 Store constants that can be globally accessed
 
 ## Tests
+#### test_augment.py\
+##### test_rank()
+Tests if the rank_dict() function preserves rank and assigns the correct ranks to all variables.
+
 #### test_fetch_extract.py\
 ##### test_download_invalidurl()
 Checks if it handles invalid urls without throwing exceptions 
