@@ -10,6 +10,7 @@ pandas = "*"
 numpy = "*"
 src = {editable = true, path = "."}
 pypdf = "*"
+geopy = "*"
 
 [dev-packages]
 

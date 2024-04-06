@@ -1,4 +1,5 @@
 import pandas as pd
+from src import geocode
 
 def rank_dict(df, column):
     sorted_df = df[column].value_counts().sort_values(ascending=False).reset_index()
@@ -21,27 +22,27 @@ def create_df(incident_list):
     # Hour of the date time
     incident_df['Time of Day'] = incident_df.date_time.apply(lambda datetime: datetime.hour)
 
+    # Side of Town
+    geocoder = geocode.GeoCoder()
+    incident_df['latlong'] = incident_df.location.apply(geocoder.get_latlong)
+    if geocoder.api_hit_count > 0:
+        geocoder.update_cache()
+
+    incident_df['Side of Town'] = incident_df.latlong.apply(geocode.side)
+
     # TODO Weather
 
     # Location Rank
     loc_rank = rank_dict(incident_df, 'location')
     incident_df['Location Rank'] = incident_df.location.apply(lambda loc: loc_rank[loc])
 
-    # TODO Side of Town
-
     # Incident Rank
     incident_rank = rank_dict(incident_df, 'nature')
     incident_df['Incident Rank'] = incident_df.nature.apply(lambda nature: incident_rank[nature])
-
-    print(incident_df)
 
     # EMSSTAT
     emsstat_dict = incident_df.groupby(['location', 'date_time'])['incident_ori'].apply(lambda x: any('EMSSTAT' == x)).to_dict()
     incident_df['loc_time'] = list(zip(incident_df.location, incident_df.date_time))
     incident_df['EMSSTAT'] = incident_df.loc_time.apply(lambda x: emsstat_dict[x])
 
-    print(incident_df[incident_df.EMSSTAT][['loc_time', 'incident_ori', 'EMSSTAT']])
-
-
-
-    
+    return incident_df[['Day of Week', 'Time of Day', 'Location Rank', 'Side of Town', 'Incident Rank', 'nature', 'EMSSTAT']]
