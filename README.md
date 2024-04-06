@@ -24,6 +24,10 @@ Download Incident Summary PDF files from the Norman Police Department website, e
 
 <!-- video -->
 
+https://github.com/CaptainO5/cis6930sp24-assignment2/assets/48147068/b3b28d11-f292-45d7-90b4-071b6ca2b0d6
+
+
+
 
 ## How to run tests
 
@@ -32,6 +36,10 @@ Download Incident Summary PDF files from the Norman Police Department website, e
 
 
 <!-- video -->
+
+https://github.com/CaptainO5/cis6930sp24-assignment2/assets/48147068/905066ea-7dd6-4b17-8fc8-d01adca9101a
+
+
 
 
 
@@ -116,6 +124,8 @@ Checks that edge cases are handled for getting the sides
 Tests weather random points (selected using google maps) are assigned correct sides
 
 <!-- latlong sides -->
+![image](https://github.com/CaptainO5/cis6930sp24-assignment2/assets/48147068/f2600bd0-08d6-4cfd-8dec-cb06b73103e9)
+
 
 ##### test_cache()
 Tests that cache is initialized correctly on creating a geocoder instance
