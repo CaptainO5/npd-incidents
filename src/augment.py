@@ -13,8 +13,9 @@ def rank_dict(df, column):
     return sorted_df.set_index(column)['rank'].to_dict()
 
 def create_df(incident_list):
-    incident_df = pd.DataFrame(incident_list, columns=['date_time', 'incident_number', 'location', 'nature', 'incident_ori']).drop_duplicates(['date_time', 'incident_number'], keep='last').sort_values('date_time', ascending=True)
+    incident_df = pd.DataFrame(incident_list, columns=['date_time', 'incident_number', 'location', 'nature', 'incident_ori']).drop_duplicates(['date_time', 'incident_number'], keep='last')
     incident_df.date_time = pd.to_datetime(incident_df.date_time, format="%m/%d/%Y %H:%M")
+    incident_df = incident_df.sort_values('date_time', ascending=True)
 
     # Weekday starting from Sunday (1)
     incident_df['Day of Week'] = incident_df.date_time.apply(lambda date: (date.weekday() + 1) % 7 + 1)

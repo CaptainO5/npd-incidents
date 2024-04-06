@@ -36,7 +36,7 @@ def weather_code(df):
         weather_codes[response_loc] = hourly_weather_code
     
     weathers = []
-    for idx, row in df.iterrows():
+    for _, row in df.iterrows():
         shortest_d = np.inf
         nearest_p = ()
         for point in weather_codes:

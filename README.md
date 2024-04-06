@@ -36,20 +36,19 @@ Download Incident Summary PDF files from the Norman Police Department website, e
 
 
 ## Functions
-#### assignment2.py \
-
+#### assignment2.py\
 This is the starting point of the program, which parses the command-line input URL File and send it to main
 
 ##### main()
 Iterate over the urls, download the files and call augment data funciton before printing it to the stdout.
 Prints the header once, prints the augmented data in the order of their appearance.
 
-#### src/fetch.py \
+#### src/fetch.py\
 ##### download()
 Uses the urlib library to download the given pdf and returns the location accessible to the extractor.
 
 
-#### src/extract.py \
+#### src/extract.py\
 ##### get_text_from() 
 Takes a PDF file path, reads it, and convets it into a string. It also does preliminary filtering to remove headers and other unnecessary content that is specific to the Norman PD Incident Summaries.
 
@@ -66,31 +65,66 @@ Returns the augmented data in the format specified.
 ##### rank_dict()
 Helper function to rank the locations and incidents based on number of occurrences in a given file.
 
+#### src/geocode.py\
+##### GeoCoder
+Class to get latitude, longitude for addresses using geopy - Geocodio api; using Geocodio for its 2500 per day free api calls and no hard ratelimits like other apis making it faster to use
+Maintains a cache for reducing api calls
+
+##### GeoCoder.update_cache()
+Saves the cache dictionary in a pickle
+
+##### GeoCoder.get_latlong()
+Calls the api if the address is not already in the cache, updates the cache when api is requested
+Adds "Norman, OK" to each location for getting accurate results
+
+##### side()
+Given a latlong, returns the side of town of the point based on the direction from center of town. Center of the town is set to East
+
+#### src/weather.py\
+##### distance()
+Helper function to get distance between two points in a plane.
+
+##### weather_code()
+Uses Historical Weather API to get weather codes for latlong and hour of day
+Selects 2 points from each side of the town, gets hourly weather code for each location. Later assigns weather code to each latlong in the data based on the nearest response latlong got from the API
+
 #### src/config.py\
 Store constants that can be globally accessed
 
 ## Tests
 #### test_fetch_extract.py\
 ##### test_download_invalidurl()
+Checks if it handles invalid urls without throwing exceptions 
 
 ##### test_download_validurl()
+Checks if the downloaded file is accessible
 
 ##### test_pdfread()
+Checks if the downloaded file is not corrupt
 
 ##### test_parse()
+Checks that information from the file is extracted 
 
 #### test_geo_wether.py\
 ##### test_distance()
+Simple check to see if the distance function is working as expected
 
 ##### test_side()
+Checks that edge cases are handled for getting the sides
 
 ##### test_sides()
+Tests weather random points (selected using google maps) are assigned correct sides
+
+<!-- latlong sides -->
 
 ##### test_cache()
+Tests that cache is initialized correctly on creating a geocoder instance
 
 ##### test_latlong()
+Tests that empry location gets town's default latlong; this happens because get_latlong() adds "Norman, OK" to each address
 
 ##### test_bad_latlong()
+Checks that bad locations are also defaulted to the Norman's latlong
 
 ## Assumptions
 

@@ -3,7 +3,7 @@ from src.fetch import download
 from src.extract import get_text_from, parse
 
 def test_download_invalidurl():
-    assert download("Hi") is None
+    assert download("URL") is None
 
 def test_download_validurl():
     file = download("https://www.normanok.gov/sites/default/files/documents/2024-03/2024-03-13_daily_incident_summary.pdf")
