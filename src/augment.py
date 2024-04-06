@@ -30,7 +30,7 @@ def create_df(incident_list):
 
     incident_df['Side of Town'] = incident_df.latlong.apply(geocode.side)
 
-    # TODO Weather
+    # Weather
     incident_df['Weather'] = weather.weather_code(incident_df)
 
     # Location Rank

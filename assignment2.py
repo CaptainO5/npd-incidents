@@ -4,8 +4,9 @@ from src import augment
 import pandas as pd
 
 def main(url_file):
-    # Read the urls from the 
     print('\t'.join(['Day of the Week', 'Time of Day', 'Weather', 'Location Rank', 'Side of Town', 'Incident Rank', 'Nature', 'EMSSTAT']))
+
+    # Read the urls from the file and augment data
     for url in list(pd.read_csv(url_file, header=None, names=['urls']).urls):
         # Download the pdf and get the location
         pdf_path = fetch.download(url)
