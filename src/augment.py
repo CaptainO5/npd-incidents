@@ -1,5 +1,5 @@
 import pandas as pd
-from src import geocode
+from src import geocode, weather
 
 def rank_dict(df, column):
     sorted_df = df[column].value_counts().sort_values(ascending=False).reset_index()
@@ -31,6 +31,7 @@ def create_df(incident_list):
     incident_df['Side of Town'] = incident_df.latlong.apply(geocode.side)
 
     # TODO Weather
+    incident_df['Weather'] = weather.weather_code(incident_df)
 
     # Location Rank
     loc_rank = rank_dict(incident_df, 'location')
@@ -45,4 +46,4 @@ def create_df(incident_list):
     incident_df['loc_time'] = list(zip(incident_df.location, incident_df.date_time))
     incident_df['EMSSTAT'] = incident_df.loc_time.apply(lambda x: emsstat_dict[x])
 
-    return incident_df[['Day of Week', 'Time of Day', 'Location Rank', 'Side of Town', 'Incident Rank', 'nature', 'EMSSTAT']]
+    return incident_df[['Day of Week', 'Time of Day', 'Weather', 'Location Rank', 'Side of Town', 'Incident Rank', 'nature', 'EMSSTAT']]

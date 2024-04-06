@@ -15,8 +15,9 @@ def side(loc_latlong):
 
     # Return the side of the town if angle falls in the range
     for side, angle_range in config.SIDE_ANGLES:
-        if angle < angle_range[1] and angle >= angle_range[0]:
+        if angle >= angle_range[0] and angle < angle_range[1]:
             return side
+    return 'E' # Default to East side
 
 class GeoCoder:
     def __init__(self):

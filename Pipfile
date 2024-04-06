@@ -11,6 +11,7 @@ numpy = "*"
 src = {editable = true, path = "."}
 pypdf = "*"
 geopy = "*"
+openmeteo-requests = "*"
 
 [dev-packages]
 
